@@ -4,7 +4,7 @@ case $1 in
             echo "usage: $0 $1 MYSQL_ROOT_PASSWORD"
             exit 1
         fi
-        docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=$2 -v mysql-volume:/var/lib/mysql -d -p 3306:3306 mysql:8.0.26
+        docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=$2 -v mysql-volume:/var/lib/mysql -d -p 3307:3306 mysql:8.0.26
         ;;
     init)
         if [ $# -ne 3 ]; then
@@ -15,7 +15,9 @@ case $1 in
         export SPRING_PASSWORD
         docker exec mysql mysql -uroot -p$2 mysql -e "create database daily_task;"
         docker exec mysql mysql -uroot -p$2 mysql -e "create user 'springuser'@'%' identified by '$3';"
-        docker exec mysql mysql -uroot -p$2 mysql -e "grant all on db_example.* to 'springuser'@'%';"
+        docker exec mysql mysql -uroot -p$2 mysql -e "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '$2';"
+        docker exec mysql mysql -uroot -p$2 mysql -e "ALTER USER 'springuser'@'%' IDENTIFIED WITH mysql_native_password BY '$3';"
+        docker exec mysql mysql -uroot -p$2 mysql -e "GRANT ALL PRIVILEGES ON daily_task.* TO 'springuser'@'%';"
         ;;
     bash-shell)
         docker exec -it mysql bash

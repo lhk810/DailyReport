@@ -10,7 +10,7 @@ plugins {
 
 group = "com.daily"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
@@ -22,15 +22,15 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-  implementation(group="org.javassist", name="javassist", version="3.27.0-GA")
-	runtimeOnly("mysql:mysql-connector-java")
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	runtimeOnly("mysql:mysql-connector-java:8.0.26")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "1.8"
 	}
 }
 
