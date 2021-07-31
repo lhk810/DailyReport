@@ -4,7 +4,7 @@ case $1 in
             echo "usage: $0 $1 MYSQL_ROOT_PASSWORD"
             exit 1
         fi
-        docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=$2 -v mysql-volume:/var/lib/mysql -d -p 3307:3306 mysql:8.0.26
+        docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=$2 -v mysql-volume:/var/lib/mysql -p 3306:3306 mysql:8
         ;;
     init)
         if [ $# -ne 3 ]; then
