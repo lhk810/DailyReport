@@ -1,0 +1,18 @@
+version: '3.7'
+
+
+services:
+  react:
+    image: lhk810/react
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.react
+    restart: always
+    container_name: my_react
+    ports: 
+      - target: 3000
+        published: 3000
+        protocol: tcp
+        mode: host
+    stdin_open: true
+    tty: true

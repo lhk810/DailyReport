@@ -1,0 +1,9 @@
+FROM node:12
+ 
+WORKDIR /report-react
+COPY report-react/package*.json ./
+RUN npm install
+COPY report-react .
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
