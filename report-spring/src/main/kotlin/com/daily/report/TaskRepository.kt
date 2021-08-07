@@ -6,5 +6,7 @@ import java.time.LocalDate
 
 @Repository
 interface TaskRepository: JpaRepository<Task, Long?> {
-    fun findAllByOrderByTargetDate(): List<Task>
+    fun findAllByOrderByTargetDateDesc(): List<Task>
+    fun findByTargetDate(targetDate: LocalDate): Task?
+    fun existsByTargetDate(targetDate: LocalDate): Boolean
 }
