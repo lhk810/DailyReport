@@ -15,14 +15,17 @@ class TaskService(private val taskRepository: TaskRepository) {
 
     fun createTask(task: Task): Task {
         task.targetDate = task.targetDate ?: LocalDate.now() //set default
-        taskRepository.save(task) // handle exception later
+        if (taskRepository.existsByTargetDate(task.targetDate!!)) {
+            throw TaskAlreadyExistException()
+        }
+        taskRepository.save(task)
         return task
     }
 
     fun updateTask(targetDate: String, task: Task): Task {
         val convertedDate: LocalDate = LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE)
         val origin: Task? = taskRepository.findByTargetDate(convertedDate) ?:
-        throw TaskStateException(HttpStatus.NOT_FOUND, "No task at the date")
+        throw TaskNotFoundException()
 
         task.id = origin?.id
         task.targetDate = convertedDate
@@ -39,6 +42,3 @@ class TaskService(private val taskRepository: TaskRepository) {
             taskRepository.deleteByTargetDate(LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE))
 }
 
-class TaskStateException(notFound: HttpStatus, message: String) : Throwable() {
-
-}
