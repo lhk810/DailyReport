@@ -9,7 +9,8 @@ import java.time.format.DateTimeFormatter
 class TaskService(private val taskRepository: TaskRepository) {
     fun getAllTasks(): List<Task> = taskRepository.findAllByOrderByTargetDateDesc()
 
-    fun getTask(targetDate: LocalDate): Task? = taskRepository.findByTargetDate(targetDate)
+    fun getTask(targetDate: String): Task? =
+            taskRepository.findByTargetDate(LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE))
 
     fun createTask(task: Task): Task {
         task.targetDate = task.targetDate ?: LocalDate.now() //set default

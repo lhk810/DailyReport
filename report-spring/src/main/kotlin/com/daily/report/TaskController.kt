@@ -11,6 +11,9 @@ class TaskController(private val taskService: TaskService) {
     @GetMapping("/")
     fun getAllTasks() = taskService.getAllTasks()
 
+    @GetMapping("/{targetDate}")
+    fun getTask(@PathVariable("targetDate") targetDate: String): Task? = taskService.getTask(targetDate)
+
     @PostMapping("/")
     fun createTask(@RequestBody payload: Task): Task =  taskService.createTask(payload)
 
