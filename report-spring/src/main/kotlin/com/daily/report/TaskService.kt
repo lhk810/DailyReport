@@ -2,6 +2,7 @@ package com.daily.report
 
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -32,6 +33,10 @@ class TaskService(private val taskRepository: TaskRepository) {
 
         return task
     }
+
+    @Transactional
+    fun deleteTask(targetDate: String): Unit =
+            taskRepository.deleteByTargetDate(LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE))
 }
 
 class TaskStateException(notFound: HttpStatus, message: String) : Throwable() {

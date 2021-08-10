@@ -9,4 +9,5 @@ interface TaskRepository: JpaRepository<Task, Long?> {
     fun findAllByOrderByTargetDateDesc(): List<Task>
     fun findByTargetDate(targetDate: LocalDate): Task?
     fun existsByTargetDate(targetDate: LocalDate): Boolean
+    fun deleteByTargetDate(targetDate: LocalDate): Unit
 }
