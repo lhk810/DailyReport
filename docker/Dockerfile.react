@@ -3,6 +3,7 @@ FROM node:12
 WORKDIR /report-react
 COPY report-react/package*.json ./
 RUN npm install
+RUN npm i @material-ui/core
 COPY report-react .
 EXPOSE 3000
 
