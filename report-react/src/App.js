@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import TaskTable from './TaskTable'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state= {
+
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8080/api/task/')
+    .then(res => res.json())
+    .then((result) => {
+      this.setState({ tasks : result });
+    },
+    (error) => {
+      this.setState({
+        error
+      });
+    })
+  }
+
+  _renderTable = () => {
+    return <TaskTable tasks = {this.state.tasks}/>
+  }
+
+  render() {
+    return (
+        <div className= {TaskTable ? "App" : "App--loading"}>
+          {this.state.tasks ? this._renderTable() :  'Loading'}
+        </div>
+    );
+  }
 }
 
 export default App;
