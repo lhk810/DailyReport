@@ -39,5 +39,9 @@ class TaskService(private val taskRepository: TaskRepository) {
     @Transactional
     fun deleteTask(targetDate: String): Unit =
             taskRepository.deleteByTargetDate(LocalDate.parse(targetDate, DateTimeFormatter.ISO_DATE))
+
+    fun getTasksByWorkOut(): List<Task> = taskRepository.findByWorkOutIsNotNullOrderByTargetDateDesc()
+    fun getTasksByStudy(): List<Task> = taskRepository.findByStudyIsNotNullOrderByTargetDateDesc()
+    fun getTasksByHangOut(): List<Task> = taskRepository.findByHangOutIsNotNullOrderByTargetDateDesc()
 }
 

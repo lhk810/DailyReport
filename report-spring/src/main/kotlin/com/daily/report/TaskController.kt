@@ -38,4 +38,16 @@ class TaskController(private val taskService: TaskService) {
     @DeleteMapping("/{targetDate}")
     fun deleteTask(@PathVariable("targetDate") targetDate: String): Unit =
             taskService.deleteTask(targetDate)
+
+    @GetMapping("/workOut")
+    fun getTaskByWorkout(): List<Task> =
+            taskService.getTasksByWorkOut()
+
+    @GetMapping("/study")
+    fun getTaskByStudy(): List<Task> =
+            taskService.getTasksByStudy()
+
+    @GetMapping("/hangOut")
+    fun getTaskByHangOut(): List<Task> =
+            taskService.getTasksByHangOut()
 }
