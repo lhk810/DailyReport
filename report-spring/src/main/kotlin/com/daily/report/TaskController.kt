@@ -8,7 +8,7 @@ import org.springframework.web.server.ResponseStatusException
 @RequestMapping("/api/task")
 @CrossOrigin(origins = ["*"])
 class TaskController(private val taskService: TaskService) {
-    @GetMapping("/")
+    @GetMapping("","/")
     fun getAllTasks() =
             taskService.getAllTasks()
 
